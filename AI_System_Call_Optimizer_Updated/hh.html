@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload with Count & Execution Time</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold mb-4">Upload Files</h2>
+        
+        <input type="file" id="fileInput" multiple class="border p-2 w-full mb-4">
+        
+        <p class="text-sm text-gray-600">Total Files Selected: <span id="fileCount">0</span></p>
+        <p class="text-sm text-gray-600">Execution Time: <span id="executionTime">0</span> ms</p>
+        
+        <button id="uploadBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg">Upload</button>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function () {
+            let files = this.files;
+            document.getElementById('fileCount').innerText = files.length;
+        });
+
+        document.getElementById('uploadBtn').addEventListener('click', function () {
+            let fileInput = document.getElementById('fileInput');
+            let files = fileInput.files;
+
+            if (files.length === 0) {
+                alert("Please select at least one file.");
+                return;
+            }
+
+            let startTime = performance.now(); // Start time
+
+            setTimeout(() => { // Simulate file upload delay
+                let endTime = performance.now(); // End time
+                let executionTime = (endTime - startTime).toFixed(2);
+                
+                document.getElementById('executionTime').innerText = executionTime;
+                alert("Files uploaded successfully!");
+            }, 1000); // 1 second delay to simulate upload
+        });
+    </script>
+
+</body>
+</html>
